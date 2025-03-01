@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-web-chon
+  namespace: chon
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: client-chon  # ต้องตรงกับ labels ของ template
+  template:
+    metadata:
+      labels:
+        app: client-chon  # ต้องตรงกับ selector.matchLabels
+    spec:
+      containers:
+        - name: client-chon
+          image: dekcode/todo-app:v4
+          ports:
+            - containerPort: 80  # ใช้พอร์ตที่แอปทำงานอยู่
+          resources:
+            requests:
+              cpu: "100m"      # 0.1 CPU Core (100 milliCPU)
+              memory: "128Mi"  # 128MB RAM
+            limits:
+              cpu: "200m"      # 0.2 CPU Core
+              memory: "256Mi"  # 256MB RAM
+
